@@ -42,24 +42,65 @@ export async function readGetClaimCount(): Promise<number> {
   return Number(res);
 }
 
-export async function readListClaims(offset = 0, limit = 50) {
+function _asStringArray(v: unknown): string[] {
+  if (Array.isArray(v)) return v.map((x) => String(x));
+  if (typeof v === "string") {
+    const s = v.trim();
+    if (!s) return [];
+    try {
+      const p = JSON.parse(s);
+      if (Array.isArray(p)) return p.map((x) => String(x));
+    } catch {
+      /* fall through */
+    }
+    return [s];
+  }
+  return [];
+}
+
+function normalizeClaim(raw: unknown): Claim {
+  const c = (raw ?? {}) as Record<string, unknown>;
+  return {
+    claim_id: String(c.claim_id ?? ""),
+    title: String(c.title ?? ""),
+    token_name: String(c.token_name ?? ""),
+    token_symbol: String(c.token_symbol ?? ""),
+    category: String(c.category ?? ""),
+    question: String(c.question ?? ""),
+    resolution_criteria: String(c.resolution_criteria ?? ""),
+    deadline: String(c.deadline ?? ""),
+    authoritative_sources: _asStringArray(c.authoritative_sources),
+    optional_evidence: _asStringArray(c.optional_evidence),
+    creator: String(c.creator ?? ""),
+    created_at: Number(c.created_at ?? 0),
+    status: (String(c.status ?? "OPEN") as Claim["status"]) || "OPEN",
+    verdict: (String(c.verdict ?? "PENDING") as Claim["verdict"]) || "PENDING",
+    reasoning_summary: String(c.reasoning_summary ?? ""),
+    evidence_digest: String(c.evidence_digest ?? ""),
+    resolved_at: Number(c.resolved_at ?? 0),
+    leader_evidence_urls: _asStringArray(c.leader_evidence_urls),
+  };
+}
+
+export async function readListClaims(offset = 0, limit = 50): Promise<Claim[]> {
   const client = createReadClient();
   const res = await client.readContract({
     address: contractAddress(),
     functionName: "list_claims",
     args: [offset, limit],
   });
-  return res as unknown as Claim[];
+  const list = Array.isArray(res) ? res : [];
+  return list.map(normalizeClaim);
 }
 
-export async function readGetClaim(claimId: string) {
+export async function readGetClaim(claimId: string): Promise<Claim> {
   const client = createReadClient();
   const res = await client.readContract({
     address: contractAddress(),
     functionName: "get_claim",
     args: [claimId],
   });
-  return res as unknown as Claim;
+  return normalizeClaim(res);
 }
 
 export async function readAllowedCategories(): Promise<string[]> {
