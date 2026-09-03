@@ -16,12 +16,19 @@ export function Landing() {
         <div className="cta">
           <Link to="/create" className="btn primary">Create a Claim</Link>
           <Link to="/claims" className="btn ghost">Browse Claims</Link>
+          <Link
+            to="/claims/meme-doge-core-api-1147-001"
+            className="btn ghost"
+            title="Live on-chain YES verdict"
+          >
+            See a live YES verdict →
+          </Link>
         </div>
 
         <div className="flow-steps">
           <div className="flow-step"><span className="num">1</span>Define event</div>
           <div className="flow-step"><span className="num">2</span>Lock resolution rules</div>
-          <div className="flow-step"><span className="num">3</span>Submit evidence</div>
+          <div className="flow-step"><span className="num">3</span>Gather evidence</div>
           <div className="flow-step"><span className="num">4</span>GenLayer consensus</div>
           <div className="flow-step"><span className="num">5</span>Final verdict</div>
         </div>
