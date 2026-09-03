@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "20"
           cache: npm
           cache-dependency-path: MemeVerdict/frontend/package-lock.json
 
@@ -38,11 +38,11 @@ jobs:
       - name: Build production dApp
         working-directory: MemeVerdict/frontend
         env:
-          VITE_GENLAYER_RPC_URL: https://studio.genlayer.com/api
+          VITE_GENLAYER_RPC_URL: "https://studio.genlayer.com/api"
           VITE_GENLAYER_CHAIN_ID: "61999"
-          VITE_GENLAYER_CHAIN_NAME: GenLayer Studio
-          VITE_GENLAYER_SYMBOL: GEN
-          VITE_MEMEVERDICT_CONTRACT_ADDRESS: 0x96a9B51C30a0Af126C7d4594489e2940F1f44621
+          VITE_GENLAYER_CHAIN_NAME: "GenLayer Studio"
+          VITE_GENLAYER_SYMBOL: "GEN"
+          VITE_MEMEVERDICT_CONTRACT_ADDRESS: "0x96a9B51C30a0Af126C7d4594489e2940F1f44621"
         run: npm run build
 
       - name: Configure Pages
