@@ -1,116 +1,123 @@
 import { Link } from "react-router-dom";
+import { LiveProof } from "../components/LiveProof";
+
+const categories = [
+  "Exchange listing",
+  "Token burn",
+  "Partnership",
+  "Chain migration",
+  "Holder milestone",
+  "Supply change",
+  "Team announcement",
+  "Feature launch",
+];
 
 export function Landing() {
   return (
-    <div>
-      <section className="hero">
-        <span className="pill accent">Built on GenLayer · Intelligent Contracts</span>
-        <h1>Verifiable verdicts on real-world meme-coin events.</h1>
+    <div className="landing-page">
+      <section className="hero hero-protocol">
+        <div className="hero-orbit orbit-one" />
+        <div className="hero-orbit orbit-two" />
+        <div className="eyebrow hero-eyebrow"><span /> Built on GenLayer Intelligent Contracts</div>
+        <h1>
+          Turn meme-coin claims into
+          <span> auditable verdicts.</span>
+        </h1>
         <p className="lead">
-          MemeVerdict uses GenLayer consensus to decide whether clearly
-          defined meme-coin events actually happened — token burns, exchange
-          listings, partnerships, holder milestones and more. Every claim is
-          adjudicated on real web evidence by a quorum of validators, not by
-          a single API or a centralized oracle.
+          MemeVerdict locks precise resolution rules, gathers authoritative web
+          evidence, and lets GenLayer validators decide whether a real-world
+          crypto event actually happened.
         </p>
         <div className="cta">
-          <Link to="/create" className="btn primary">Create a Claim</Link>
-          <Link to="/claims" className="btn ghost">Browse Claims</Link>
-          <Link
-            to="/claims/meme-doge-core-api-1147-001"
-            className="btn ghost"
-            title="Live on-chain YES verdict"
-          >
-            See a live YES verdict →
-          </Link>
+          <Link to="/create" className="btn primary hero-primary">Create a claim</Link>
+          <Link to="/claims" className="btn ghost">Explore live claims</Link>
         </div>
-
-        <div className="flow-steps">
-          <div className="flow-step"><span className="num">1</span>Define event</div>
-          <div className="flow-step"><span className="num">2</span>Lock resolution rules</div>
-          <div className="flow-step"><span className="num">3</span>Gather evidence</div>
-          <div className="flow-step"><span className="num">4</span>GenLayer consensus</div>
-          <div className="flow-step"><span className="num">5</span>Final verdict</div>
+        <div className="hero-trust-row">
+          <span><i className="trust-icon">✓</i> Immutable resolution rules</span>
+          <span><i className="trust-icon">✓</i> Validator consensus</span>
+          <span><i className="trust-icon">✓</i> SHA-256 evidence digest</span>
         </div>
       </section>
 
-      <section className="section grid three">
-        <div className="card">
-          <h3>Immutable resolution rules</h3>
-          <p className="muted" style={{ marginTop: 6 }}>
-            No vague questions. Every claim locks in an exact yes/no
-            question, resolution criteria, deadline and list of
-            authoritative sources at the moment it is created — none of
-            those fields can be silently rewritten later.
-          </p>
+      <LiveProof />
+
+      <section className="section process-section">
+        <div className="section-kicker">How it works</div>
+        <div className="section-heading-row">
+          <div>
+            <h2 className="display-section-title">From claim to final verdict.</h2>
+            <p className="section-lead max-copy">
+              Every important decision is separated into a clear step, so a
+              reviewer can audit what was defined, what was read, and what the
+              validator network agreed on.
+            </p>
+          </div>
         </div>
-        <div className="card">
-          <h3>Consensus-graded evidence</h3>
-          <p className="muted" style={{ marginTop: 6 }}>
-            Validators fetch the pages themselves and independently reason
-            about the evidence with an LLM. The verdict only stores if
-            enough validators agree on the decision. Reasoning text is kept
-            but never compared — the contract compares stable decision
-            fields.
-          </p>
-        </div>
-        <div className="card">
-          <h3>Auditable, later</h3>
-          <p className="muted" style={{ marginTop: 6 }}>
-            Every resolved claim stores an SHA-256 digest of the retrieved
-            evidence, the URLs the leader used, the reasoning summary, and
-            the final verdict — so anyone can re-examine the decision even
-            if the original webpages later change.
-          </p>
+        <div className="process-grid">
+          {[
+            ["01", "Define", "Write an exact yes/no event question with a deadline."],
+            ["02", "Lock", "Resolution criteria and authoritative sources become immutable."],
+            ["03", "Retrieve", "Validators fetch the declared evidence directly from the web."],
+            ["04", "Reason", "Independent LLM-assisted adjudication runs under GenLayer consensus."],
+            ["05", "Finalize", "YES, NO, or UNRESOLVED is stored with reasoning and an evidence digest."],
+          ].map(([n, title, copy]) => (
+            <article className="process-card" key={n}>
+              <div className="process-number">{n}</div>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="section card">
-        <h2 style={{ marginTop: 0 }}>Why an Intelligent Contract?</h2>
-        <p className="muted">
-          A traditional smart contract cannot ask <em>"did Binance actually
-          list this token?"</em> — it has no access to the outside world.
-          A single oracle can, but then a single party can be corrupted. A
-          GenLayer Intelligent Contract lets many validators independently
-          <strong> read the same authoritative pages, reason about them
-          with an LLM, and only accept the verdict if the network agrees
-          on the decision</strong>. That is the exact primitive
-          MemeVerdict needs.
-        </p>
-      </section>
-
-      <section className="section grid two">
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Supported event categories</h3>
-          <ul style={{ paddingLeft: 20, color: "var(--text-dim)", lineHeight: 1.9 }}>
-            <li>Exchange Listing</li>
-            <li>Token Burn</li>
-            <li>Partnership</li>
-            <li>Blockchain Migration</li>
-            <li>Holder Milestone</li>
-            <li>Supply Change</li>
-            <li>Official Team Announcement</li>
-            <li>Feature / Product Launch</li>
-            <li>Custom Meme-Coin Event</li>
-          </ul>
-        </div>
-        <div className="card">
-          <h3 style={{ marginTop: 0 }}>Evidence trust boundary</h3>
-          <p className="muted">
-            The contract prefers, in order:
+      <section className="section grid two feature-grid">
+        <article className="feature-panel feature-panel-large">
+          <div className="section-kicker">Why GenLayer</div>
+          <h2>Web-aware adjudication without a single oracle.</h2>
+          <p>
+            Traditional smart contracts cannot independently inspect a Binance
+            announcement, a GitHub release, or a blockchain explorer page. A
+            centralized oracle can, but then the verdict depends on one party.
           </p>
-          <ol style={{ paddingLeft: 20, color: "var(--text-dim)", lineHeight: 1.7 }}>
-            <li>Primary authoritative source (e.g. official exchange announcement)</li>
-            <li>Independent authoritative source</li>
-            <li>High-quality secondary source</li>
+          <p>
+            MemeVerdict uses GenLayer so validators can independently retrieve
+            evidence, reason over it, and agree only on stable decision fields.
+          </p>
+          <div className="feature-rule">
+            <span>Consensus output</span>
+            <strong>YES · NO · UNRESOLVED</strong>
+          </div>
+        </article>
+
+        <article className="feature-panel">
+          <div className="section-kicker">Evidence trust boundary</div>
+          <h2>Better sources carry more weight.</h2>
+          <ol className="trust-list">
+            <li><span>1</span><div><strong>Primary authoritative source</strong><small>Official exchange, project, or API evidence</small></div></li>
+            <li><span>2</span><div><strong>Independent authoritative source</strong><small>Explorer or independently verifiable record</small></div></li>
+            <li><span>3</span><div><strong>High-quality secondary source</strong><small>Useful context, never enough to fabricate certainty</small></div></li>
           </ol>
-          <p className="muted">
-            Random social posts, anonymous replies and low-quality blogs
-            <strong> cannot</strong> flip a verdict on their own. If the
-            evidence is missing or contradictory, the contract returns
-            <span className="pill warn" style={{ marginLeft: 8 }}>UNRESOLVED</span>
-            instead of forcing a YES or NO.
-          </p>
+          <div className="unresolved-note">Insufficient evidence → <strong>UNRESOLVED</strong>, not a guess.</div>
+        </article>
+      </section>
+
+      <section className="section category-section">
+        <div className="section-kicker">Supported events</div>
+        <h2 className="display-section-title">Built for checkable meme-coin events.</h2>
+        <div className="category-cloud">
+          {categories.map((category) => <span key={category}>{category}</span>)}
+          <span>Custom event</span>
+        </div>
+      </section>
+
+      <section className="section final-cta-panel">
+        <div>
+          <div className="section-kicker">Start with the rules</div>
+          <h2>Make the claim precise before anyone argues about the outcome.</h2>
+        </div>
+        <div className="final-cta-actions">
+          <Link to="/create" className="btn primary">Create a MemeVerdict claim</Link>
+          <Link to="/claims/meme-doge-core-api-1147-001" className="btn ghost">View the live YES proof</Link>
         </div>
       </section>
     </div>
