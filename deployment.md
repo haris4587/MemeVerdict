@@ -81,9 +81,29 @@ Set the same `VITE_*` env variables in the host's build settings.
 Fill these in and commit to the repo (or paste into your submission form):
 
 ```
-Contract address:         0x…
-Deployment tx hash:       0x…
-First consensus tx hash:  0x…
-Frontend URL:             https://…
-GitHub repo:              https://github.com/<you>/MemeVerdict
+Contract address:         0x96a9B51C30a0Af126C7d4594489e2940F1f44621
+Deployment tx hash:       0x67217d9b3fc896c5ca9765b1bb4f0c103f05d475ce124899e20e21771bfec776
+First YES consensus tx:   0xbb53b48924d406e016b207c4dff77b2b468a9c1db70740740adb262a70bcd183
+Frontend URL:             https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai
+Direct YES verdict URL:   https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001
+GitHub repo:              https://github.com/haris4587/MemeVerdict
 ```
+
+## OFFICIAL MemeVerdict v2 deployment (recorded on 2026-09-03)
+
+```
+Contract address:              0x96a9B51C30a0Af126C7d4594489e2940F1f44621
+Deployment transaction:        0x67217d9b3fc896c5ca9765b1bb4f0c103f05d475ce124899e20e21771bfec776
+First YES consensus tx:        0xbb53b48924d406e016b207c4dff77b2b468a9c1db70740740adb262a70bcd183
+First resolved claim id:       meme-doge-core-api-1147-001
+Final verdict for that claim:  YES
+Evidence digest (sha256):      a9d26973da816ca0e54267beaa47e3224f09e7f1c10370ae7c47eae622fb45a3
+Leader evidence URL:           https://api.github.com/repos/dogecoin/dogecoin/releases/tags/v1.14.7
+Contract reasoning:            Dogecoin Core v1.14.7 was officially published on 2024-02-28.
+Network:                       GenLayer Studio (chain 61999)
+RPC:                           https://studio.genlayer.com/api
+```
+
+The frontend `.env` files at the repo root and inside `frontend/` are
+pre-populated with these values; nothing further needs to change for
+this deployment.
