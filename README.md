@@ -5,6 +5,20 @@
 </p>
 
 <p align="center">
+  <strong>Live on GenLayer Studio:</strong>
+  <code>0x96a9B51C30a0Af126C7d4594489e2940F1f44621</code><br/>
+  First on-chain YES verdict: <code>meme-doge-core-api-1147-001</code>
+  &middot; consensus tx <code>0xbb53b489…bcd183</code>
+</p>
+
+<p align="center">
+  <strong>Live frontend:</strong>
+  <a href="https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai">https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai</a><br/>
+  Direct on-chain YES verdict:
+  <a href="https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001">meme-doge-core-api-1147-001</a>
+</p>
+
+<p align="center">
   <a href="https://genlayer.com"><img alt="Built on GenLayer" src="https://img.shields.io/badge/Built%20on-GenLayer-8b5cf6?style=for-the-badge"></a>
   <img alt="Python 3.12" src="https://img.shields.io/badge/contract-Python%203.12-22d3ee?style=for-the-badge">
   <img alt="React + Vite" src="https://img.shields.io/badge/frontend-React%20%2B%20Vite-a78bfa?style=for-the-badge">
@@ -284,27 +298,33 @@ Two additional scripted demos (**NO** and **UNRESOLVED**) plus screenshot sugges
 
 ---
 
-## ✅ What YOU need to do manually after cloning this repo
+## ✅ Live deployment status
 
-The AI generated everything up to and including the contract source. The following on-chain steps must be performed by **you**, with **your** wallet, so that private keys never leave your machine.
+MemeVerdict v2 is deployed and has completed a real Full Consensus adjudication.
 
-- [ ] **Create a new GitHub repository** named `MemeVerdict` (keep it separate from RugShield).
-- [ ] Push this project to the repo (`git init && git add . && git commit -m "MemeVerdict initial" && git remote add origin … && git push -u origin main`).
-- [ ] Open [GenLayer Studio](https://studio.genlayer.com/) in your browser.
-- [ ] In Studio, upload / paste [`contract/meme_verdict.py`](contract/meme_verdict.py) as a new contract.
-- [ ] Click **Deploy** — approve the deployment transaction in your wallet.
-- [ ] Copy the **deployed contract address** and paste it into `.env` as `VITE_MEMEVERDICT_CONTRACT_ADDRESS`.
-- [ ] Run at least one real **Full Consensus** transaction: from Studio (or the running frontend) call `create_claim(...)` with the DOGEDEMO demo, then call `request_resolution(...)`. Wait for the consensus round to finalize.
-- [ ] Record on paper (or paste into `docs/deployment.md`):
-  - contract address
-  - deployment transaction hash
-  - `request_resolution` consensus transaction hash
-- [ ] Add those values to the frontend's `.env` and re-deploy the frontend (e.g. `npm run build` → any static host).
-- [ ] From the deployed frontend, test **Connect Wallet → Create Claim → Request Resolution → Verdict**.
-- [ ] Capture screenshots for your project submission — the Studio consensus panel, the frontend verdict banner, the transaction hash on the finalized state.
-- [ ] Prepare the GenLayer project submission with the recorded addresses / hashes.
+- [x] GitHub repository created
+- [x] Intelligent Contract v2 deployed on GenLayer Studio
+- [x] Real claim created on-chain
+- [x] Real Full Consensus resolution completed
+- [x] Final on-chain verdict: **YES**
+- [x] Evidence digest stored on-chain
+- [x] Frontend configured for the v2 contract
+- [x] Frontend exposes a direct link to the live YES claim
+- [x] Current public frontend published
 
-**The AI must not push any of this on your behalf.** If any step above requires a wallet signature, it must come from your wallet.
+### Official evidence
+
+- **Contract:** `0x96a9B51C30a0Af126C7d4594489e2940F1f44621`
+- **Deployment tx:** `0x67217d9b3fc896c5ca9765b1bb4f0c103f05d475ce124899e20e21771bfec776`
+- **YES claim:** `meme-doge-core-api-1147-001`
+- **Claim creation tx:** `0xe07cea3242aae1c2679363143e95502133d6c432ee4c0a0d5b1dde7e67d1b2ef`
+- **Full Consensus tx:** `0xbb53b48924d406e016b207c4dff77b2b468a9c1db70740740adb262a70bcd183`
+- **Evidence digest:** `a9d26973da816ca0e54267beaa47e3224f09e7f1c10370ae7c47eae622fb45a3`
+- **Authoritative evidence:** `https://api.github.com/repos/dogecoin/dogecoin/releases/tags/v1.14.7`
+- **Frontend:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai
+- **Direct verdict:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001
+
+The remaining project-level action is to capture final screenshots and submit these evidence links through the GenLayer project submission flow.
 
 ---
 
