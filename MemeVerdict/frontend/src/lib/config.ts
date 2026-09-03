@@ -24,7 +24,8 @@ export const GENLAYER_SYMBOL: string =
   import.meta.env.VITE_GENLAYER_SYMBOL || "GEN";
 
 export const MEMEVERDICT_CONTRACT_ADDRESS: string =
-  (import.meta.env.VITE_MEMEVERDICT_CONTRACT_ADDRESS as string) || "";
+  (import.meta.env.VITE_MEMEVERDICT_CONTRACT_ADDRESS as string) ||
+  "0x96a9B51C30a0Af126C7d4594489e2940F1f44621";
 
 export const NETWORK_INFO = {
   chainId: GENLAYER_CHAIN_ID_HEX,
