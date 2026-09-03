@@ -1,0 +1,40 @@
+# Environments — repo root
+.env
+.env.*
+!.env.example
+
+# Environments — anywhere in the tree (frontend/.env, scripts/.env, ...)
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/build/
+node_modules/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.log
+
+# GenLayer artifacts
+deploy_output.json
+*.receipt.json
