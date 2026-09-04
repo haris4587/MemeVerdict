@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/memeverdict-logo.png" alt="MemeVerdict logo" width="240" />
+  <img src="assets/memeverdict-logo.svg" alt="MemeVerdict logo" width="240" />
 </p>
 
 <h1 align="center">MemeVerdict</h1>
