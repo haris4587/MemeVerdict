@@ -11,7 +11,7 @@ function shortContract(address: string) {
 }
 
 export function App() {
-  const logoUrl = `${import.meta.env.BASE_URL}memeverdict-logo.png`;
+  const logoUrl = `${import.meta.env.BASE_URL}memeverdict-logo.svg`;
 
   return (
     <div className="app-shell">
