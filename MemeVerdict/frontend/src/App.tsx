@@ -11,11 +11,20 @@ function shortContract(address: string) {
 }
 
 export function App() {
+  const logoUrl = `${import.meta.env.BASE_URL}memeverdict-logo.png`;
+
   return (
     <div className="app-shell">
       <header className="app-header">
         <NavLink to="/" className="brand" aria-label="MemeVerdict home">
-          <span className="brand-mark"><i /></span>
+          <img
+            src={logoUrl}
+            alt=""
+            aria-hidden="true"
+            width={38}
+            height={38}
+            style={{ borderRadius: 10, objectFit: "cover", display: "block" }}
+          />
           <span className="brand-text">Meme<span className="brand-accent">Verdict</span></span>
         </NavLink>
         <nav className="app-nav">
