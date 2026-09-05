@@ -44,8 +44,7 @@ export function ClaimExplorer() {
       <div className="section" style={{ marginTop: 0 }}>
         <h1 className="section-title">Claim explorer</h1>
         <p className="section-lead">
-          Every claim ever created on this deployment of the MemeVerdict
-          Intelligent Contract.
+          The first 100 claims stored on this MemeVerdict deployment.
         </p>
       </div>
 
@@ -53,7 +52,7 @@ export function ClaimExplorer() {
 
       {err && <div className="notice" style={{ marginBottom: 12 }}>{err}</div>}
 
-      {claims === null ? (
+      {err ? <div className="empty">Claims could not be loaded. Refresh to retry.</div> : claims === null ? (
         <div className="empty">Loading claims from the Intelligent Contract…</div>
       ) : claims.length === 0 ? (
         <div className="empty">

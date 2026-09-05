@@ -13,9 +13,9 @@
 
 <p align="center">
   <strong>Live frontend:</strong>
-  <a href="https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai">https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai</a><br/>
+  <a href="https://memeverdict.ansaf1st33.chatgpt.site">https://memeverdict.ansaf1st33.chatgpt.site</a><br/>
   Direct on-chain YES verdict:
-  <a href="https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001">meme-doge-core-api-1147-001</a>
+  <a href="https://memeverdict.ansaf1st33.chatgpt.site/#/claims/meme-doge-core-api-1147-001">meme-doge-core-api-1147-001</a>
 </p>
 
 <p align="center">
@@ -321,8 +321,8 @@ MemeVerdict v2 is deployed and has completed a real Full Consensus adjudication.
 - **Full Consensus tx:** `0xbb53b48924d406e016b207c4dff77b2b468a9c1db70740740adb262a70bcd183`
 - **Evidence digest:** `a9d26973da816ca0e54267beaa47e3224f09e7f1c10370ae7c47eae622fb45a3`
 - **Authoritative evidence:** `https://api.github.com/repos/dogecoin/dogecoin/releases/tags/v1.14.7`
-- **Frontend:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai
-- **Direct verdict:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001
+- **Frontend:** https://memeverdict.ansaf1st33.chatgpt.site
+- **Direct verdict:** https://memeverdict.ansaf1st33.chatgpt.site/#/claims/meme-doge-core-api-1147-001
 
 The remaining project-level action is to capture final screenshots and submit these evidence links through the GenLayer project submission flow.
 

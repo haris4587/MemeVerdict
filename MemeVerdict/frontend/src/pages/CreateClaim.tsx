@@ -93,20 +93,20 @@ export function CreateClaim() {
     hasContractConfigured() &&
     w.isConnected &&
     w.onCorrectNetwork &&
-    title.length >= 6 &&
-    tokenName.length >= 1 &&
-    tokenSymbol.length >= 1 &&
-    question.length >= 20 &&
+    title.trim().length >= 6 &&
+    tokenName.trim().length >= 1 &&
+    tokenSymbol.trim().length >= 1 && tokenSymbol.trim().length <= 20 &&
+    question.trim().length >= 20 &&
     question.trim().endsWith("?") &&
-    criteria.length >= 20 &&
+    criteria.trim().length >= 20 &&
     deadline.length >= 4 &&
-    sourcesArray.length >= 1 &&
+    sourcesArray.length >= 1 && sourcesArray.every(s => /^https?:\/\//i.test(s)) &&
     status.kind !== "signing" &&
     status.kind !== "submitted" &&
     status.kind !== "finalizing";
 
   async function submit() {
-    if (!w.address) return;
+    if (!w.address || !canSubmit) return;
     setStatus({ kind: "signing" });
     try {
       const hash = await writeCreateClaim(w.address, {
@@ -232,8 +232,8 @@ export function CreateClaim() {
               placeholder={"https://www.example-exchange.com/announcements\nhttps://www.example-exchange.com/markets/DOGEDEMO"}
             />
             <div className="hint">
-              One URL per line (or comma-separated). Validators may only
-              trust these + officially-recognized secondary sources.
+              Use full official HTTP(S) URLs, one per line (or comma-separated).
+              The deployed v2 contract fetches at most six sources and does not fetch bare domains.
             </div>
           </div>
           <div className="field">

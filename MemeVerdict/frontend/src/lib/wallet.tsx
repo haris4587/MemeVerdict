@@ -138,7 +138,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
       });
       return;
     }
-    const accounts = await getAccounts();
+    const accounts = window.localStorage.getItem(DISCONNECT_FLAG) === "true" ? [] : await getAccounts();
     const chainId = await getChainId();
     const onCorrect = chainId
       ? parseInt(chainId, 16) === GENLAYER_CHAIN_ID
@@ -154,13 +154,6 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const wasDisconnected =
-      typeof window !== "undefined" &&
-      window.localStorage.getItem(DISCONNECT_FLAG) === "true";
-    if (wasDisconnected) {
-      setState((s) => ({ ...s, hasMetaMask: !!getProvider(), isLoading: false }));
-      return;
-    }
     refresh();
     const p = getProvider();
     if (!p) return;

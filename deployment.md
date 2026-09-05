@@ -11,7 +11,12 @@ MemeVerdict has two independent deployments: the **Intelligent Contract** (on Ge
 - A GenLayer wallet — MetaMask configured for either **GenLayer Studio** or **Testnet Bradbury**.
 - Node.js 20+ and Python 3.12+ locally.
 
-## 2. Deploy the Intelligent Contract via GenLayer Studio
+## 2. Existing deployment (do not redeploy for frontend setup)
+
+Use the official v2 address recorded below. The following steps are only for a
+separately approved future deployment.
+
+### Deployment reference
 
 1. Open <https://studio.genlayer.com/>.
 2. Connect your wallet in Studio (top-right).
@@ -31,9 +36,10 @@ From Studio (or from the running dApp once configured):
 
 ## 4. Configure the frontend
 
-At the repo root:
+From the repository root:
 
 ```bash
+cd MemeVerdict/frontend
 cp .env.example .env
 ```
 
@@ -44,16 +50,15 @@ VITE_GENLAYER_RPC_URL=https://studio.genlayer.com/api
 VITE_GENLAYER_CHAIN_ID=61999
 VITE_GENLAYER_CHAIN_NAME=GenLayer Studio
 VITE_GENLAYER_SYMBOL=GEN
-VITE_MEMEVERDICT_CONTRACT_ADDRESS=0xYourDeployedContractAddress
+VITE_MEMEVERDICT_CONTRACT_ADDRESS=0x96a9B51C30a0Af126C7d4594489e2940F1f44621
 ```
 
-Note: `VITE_MEMEVERDICT_CONTRACT_ADDRESS` is the **only** field you must change after each deploy. There are no other places in the source that reference the contract address.
+Vite reads these settings from `frontend/.env` at build time. Rebuild after changes. Public defaults point at the official v2 deployment; no private key belongs in a VITE variable.
 
 ## 5. Run the frontend locally
 
 ```bash
-cd frontend
-npm install
+npm ci
 npm run dev
 ```
 
@@ -69,7 +74,6 @@ Open <http://localhost:5173>. From the UI:
 Any static host works — GitHub Pages, Cloudflare Pages, Vercel, Netlify, S3.
 
 ```bash
-cd frontend
 npm run build          # outputs frontend/dist
 ```
 
@@ -84,8 +88,8 @@ Fill these in and commit to the repo (or paste into your submission form):
 Contract address:         0x96a9B51C30a0Af126C7d4594489e2940F1f44621
 Deployment tx hash:       0x67217d9b3fc896c5ca9765b1bb4f0c103f05d475ce124899e20e21771bfec776
 First YES consensus tx:   0xbb53b48924d406e016b207c4dff77b2b468a9c1db70740740adb262a70bcd183
-Frontend URL:             https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai
-Direct YES verdict URL:   https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001
+Frontend URL:             https://memeverdict.ansaf1st33.chatgpt.site
+Direct YES verdict URL:   https://memeverdict.ansaf1st33.chatgpt.site/#/claims/meme-doge-core-api-1147-001
 GitHub repo:              https://github.com/haris4587/MemeVerdict
 ```
 

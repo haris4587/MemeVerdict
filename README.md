@@ -44,10 +44,28 @@ The successful live claim asked whether Dogecoin Core version 1.14.7 was officia
 
 ## Live dApp
 
-- **MemeVerdict dApp:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai
-- **Direct live YES verdict:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001
+- **MemeVerdict dApp:** https://memeverdict.ansaf1st33.chatgpt.site
+- **Direct live YES verdict:** https://memeverdict.ansaf1st33.chatgpt.site/#/claims/meme-doge-core-api-1147-001
 
 The frontend reads claim and verdict data from the deployed Intelligent Contract. The showcased YES result is not hard-coded.
+
+## Reproduce and review
+
+```bash
+cd MemeVerdict/frontend
+cp .env.example .env
+npm ci
+npm run build
+node scripts/verify-live.mjs
+npm run dev
+```
+
+The live verification script only reads existing contract state and transaction
+receipts. MetaMask signatures and new transactions remain user actions.
+
+**Status: full dApp MVP, not a security-audited oracle.** See the
+[2026-09-05 review](MemeVerdict/docs/review-2026-09-05.md) for verified checks
+and material source-domain/evidence limitations in the unchanged v2 contract.
 
 ## Core features
 
@@ -63,7 +81,7 @@ The frontend reads claim and verdict data from the deployed Intelligent Contract
 - Leader evidence URLs
 - Consensus/finalization status
 - Immutable resolution questions and criteria
-- Explicit authoritative-source trust boundary
+- Caller-designated sources with documented v2 domain-check limitations
 - Defensive `UNRESOLVED` behavior for weak evidence
 - Regression protection for GenVM float-calldata serialization
 
@@ -103,8 +121,8 @@ The original v1 debug deployment exposed a GenVM float-calldata serialization is
 Strongest evidence links for reviewers:
 
 1. **Repository:** https://github.com/haris4587/MemeVerdict
-2. **Live dApp:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai
-3. **Direct YES verdict:** https://4173-sbx-66429d05403ce7e6aa5af1d6bdc135b0.sandbox.westus2-prod.sspark.ai/claims/meme-doge-core-api-1147-001
+2. **Live dApp:** https://memeverdict.ansaf1st33.chatgpt.site
+3. **Direct YES verdict:** https://memeverdict.ansaf1st33.chatgpt.site/#/claims/meme-doge-core-api-1147-001
 4. **Contract source:** https://github.com/haris4587/MemeVerdict/blob/main/MemeVerdict/contract/meme_verdict.py
 5. **Deployment documentation:** https://github.com/haris4587/MemeVerdict/blob/main/MemeVerdict/docs/deployment.md
 6. **Official evidence source:** https://api.github.com/repos/dogecoin/dogecoin/releases/tags/v1.14.7

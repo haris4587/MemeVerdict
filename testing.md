@@ -1,6 +1,6 @@
 # Testing
 
-MemeVerdict ships with two layers of automated tests:
+MemeVerdict includes direct-mode test sources and a manual integration checklist:
 
 ## Direct-mode (in-memory, no Docker)
 
@@ -27,25 +27,13 @@ pytest contract/tests -v
 | `test_resolve_claim.py::TestResolveGuards` | Cannot resolve twice, cannot add evidence after resolve, missing claim raises. |
 | `test_admin.py` | Owner-only pause, non-owner cannot pause, paused blocks new claims, ownership can be transferred. |
 
-## Integration mode (against a running GenLayer environment)
+## Live verification and integration coverage
 
-Once direct tests pass, run against a real GenLayer environment:
-
-```bash
-# GLSim — fast, no Docker
-pip install "genlayer-test[sim]"
-gltest run tests/integration -v --network localnet
-
-# or a local GenLayer Studio
-genlayer init && genlayer up
-gltest run tests/integration -v --network localnet
-
-# or Testnet Bradbury (needs private keys configured in gltest.config.yaml)
-gltest run tests/integration -v --network bradbury
-```
-
-For the initial delivery, the priority is the direct-mode suite above —
-integration tests can be added once a live deploy is available.
+The deployed v2 YES claim and the 2026-09-05 read checks are documented in
+[the project review](https://github.com/haris4587/MemeVerdict/blob/main/MemeVerdict/docs/review-2026-09-05.md).
+There is no `tests/integration` directory in this repository. The direct-mode
+suite above is distinct from real validator consensus; do not claim either
+passed without its actual run output.
 
 ## Manual test cases (what to try in the UI)
 

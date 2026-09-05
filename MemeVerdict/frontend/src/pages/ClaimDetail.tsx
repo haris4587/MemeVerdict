@@ -1,3 +1,4 @@
+import { evidenceHref } from "../lib/evidence";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
@@ -48,6 +49,7 @@ export function ClaimDetail() {
   const [evidenceTx, setEvidenceTx] = useState<TxState>({ kind: "idle" });
 
   async function refresh() {
+    setErr(null);
     try {
       const c = await readGetClaim(claimId);
       setClaim(c);
@@ -58,6 +60,10 @@ export function ClaimDetail() {
   }
 
   useEffect(() => {
+    setClaim(null);
+    setErr(null);
+    setResolveTx({ kind: "idle" });
+    setEvidenceTx({ kind: "idle" });
     if (claimId) void refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [claimId]);
@@ -104,7 +110,7 @@ export function ClaimDetail() {
       {err && <div className="notice">{err}</div>}
 
       {!claim ? (
-        <div className="empty">Loading claim…</div>
+        <div className="empty">{err ? "Claim unavailable. Refresh to retry." : "Loading claim…"}</div>
       ) : (
         <>
           <h1 style={{ margin: "6px 0 8px", letterSpacing: "-0.01em" }}>{claim.title}</h1>
@@ -132,7 +138,7 @@ export function ClaimDetail() {
                 <label>Authoritative sources</label>
                 <ul style={{ paddingLeft: 20, margin: 0 }}>
                   {claim.authoritative_sources.map((s) => (
-                    <li key={s}><a href={s} target="_blank" rel="noreferrer">{s}</a></li>
+                    <li key={s}><a href={evidenceHref(s)} target="_blank" rel="noreferrer">{s}</a></li>
                   ))}
                 </ul>
               </div>
@@ -143,7 +149,7 @@ export function ClaimDetail() {
                 ) : (
                   <ul style={{ paddingLeft: 20, margin: 0 }}>
                     {claim.optional_evidence.map((s) => (
-                      <li key={s}><a href={s} target="_blank" rel="noreferrer">{s}</a></li>
+                      <li key={s}><a href={evidenceHref(s)} target="_blank" rel="noreferrer">{s}</a></li>
                     ))}
                   </ul>
                 )}
@@ -218,7 +224,7 @@ export function ClaimDetail() {
                       ) : (
                         <ul style={{ paddingLeft: 20, margin: 0 }}>
                           {claim.leader_evidence_urls.map((u) => (
-                            <li key={u}><a href={u} target="_blank" rel="noreferrer">{u}</a></li>
+                            <li key={u}><a href={evidenceHref(u)} target="_blank" rel="noreferrer">{u}</a></li>
                           ))}
                         </ul>
                       )}

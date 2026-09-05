@@ -41,6 +41,5 @@ export const NETWORK_INFO = {
 
 export function hasContractConfigured(): boolean {
   return typeof MEMEVERDICT_CONTRACT_ADDRESS === "string" &&
-    MEMEVERDICT_CONTRACT_ADDRESS.startsWith("0x") &&
-    MEMEVERDICT_CONTRACT_ADDRESS.length >= 40;
+    /^0x[0-9a-fA-F]{40}$/.test(MEMEVERDICT_CONTRACT_ADDRESS);
 }

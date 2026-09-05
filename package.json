@@ -1,0 +1,7 @@
+{
+  "name": "memeverdict-site",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix MemeVerdict/frontend run build && node scripts/stage-site.mjs"
+  }
+}

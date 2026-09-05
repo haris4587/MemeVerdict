@@ -6,17 +6,25 @@
  */
 import { createClient } from "genlayer-js";
 import { studionet } from "genlayer-js/chains";
-import { MEMEVERDICT_CONTRACT_ADDRESS } from "./config";
+import { TransactionStatus, type TransactionHash } from "genlayer-js/types";
+import { MEMEVERDICT_CONTRACT_ADDRESS, GENLAYER_RPC_URL, GENLAYER_CHAIN_ID, GENLAYER_CHAIN_NAME, GENLAYER_SYMBOL } from "./config";
+
+function configuredChain() {
+  return { ...studionet, id: GENLAYER_CHAIN_ID, name: GENLAYER_CHAIN_NAME,
+    nativeCurrency: { name: GENLAYER_SYMBOL, symbol: GENLAYER_SYMBOL, decimals: 18 },
+    rpcUrls: { default: { http: [GENLAYER_RPC_URL] } } };
+}
 
 type Address = `0x${string}`;
 
 export function createReadClient() {
-  return createClient({ chain: studionet as never });
+  return createClient({ chain: configuredChain(), endpoint: GENLAYER_RPC_URL });
 }
 
 export function createSigningClient(account: string) {
+  if (!window.ethereum) throw new Error("Connect MetaMask before submitting.");
   return createClient({
-    chain: studionet as never,
+    chain: configuredChain(), endpoint: GENLAYER_RPC_URL,
     account: account as Address,
   });
 }
@@ -59,7 +67,10 @@ function _asStringArray(v: unknown): string[] {
 }
 
 function normalizeClaim(raw: unknown): Claim {
-  const c = (raw ?? {}) as Record<string, unknown>;
+  if (!raw || typeof raw !== "object" || !("claim_id" in raw) || !String(raw.claim_id)) {
+    throw new Error("The contract returned an invalid claim response.");
+  }
+  const c = raw as Record<string, unknown>;
   return {
     claim_id: String(c.claim_id ?? ""),
     title: String(c.title ?? ""),
@@ -89,7 +100,8 @@ export async function readListClaims(offset = 0, limit = 50): Promise<Claim[]> {
     functionName: "list_claims",
     args: [offset, limit],
   });
-  const list = Array.isArray(res) ? res : [];
+  if (!Array.isArray(res)) throw new Error("The contract returned an invalid claim list.");
+  const list = res;
   return list.map(normalizeClaim);
 }
 
@@ -175,18 +187,30 @@ export async function writeAddEvidence(
   return hash as string;
 }
 
+interface ExecutionReceipt { mode?: string; execution_result?: string }
+
 export async function waitFinal(hash: string) {
   const client = createReadClient();
-  // waitForDecision waits for a materialized decision; waitForFinalization
-  // additionally waits for final fee settlement.
-  if (typeof (client as { waitForFinalization?: unknown }).waitForFinalization === "function") {
-    return await (client as unknown as {
-      waitForFinalization: (a: { hash: string }) => Promise<unknown>;
-    }).waitForFinalization({ hash });
+  if (!/^0x[0-9a-fA-F]{64}$/.test(hash)) throw new Error("Invalid transaction hash.");
+  await client.waitForTransactionReceipt({
+    hash: hash as TransactionHash,
+    status: TransactionStatus.FINALIZED,
+    interval: 5000,
+    retries: 180,
+  });
+  // Finalization alone does not prove successful execution.
+  const tx = await client.getTransaction({ hash: hash as TransactionHash });
+  const raw = tx as unknown as { consensus_data?: { leader_receipt?: ExecutionReceipt | ExecutionReceipt[] } };
+  const leader = raw.consensus_data?.leader_receipt;
+  const receipts = Array.isArray(leader) ? leader : leader ? [leader] : [];
+  // Studio may include canceled validator entries in leader_receipt.
+  // Only the actual leader's execution determines this success check.
+  const leaders = receipts.filter(r => r.mode === "leader");
+  const success = leaders.length > 0 && leaders.every(r => r.execution_result === "SUCCESS");
+  if (!success) {
+    throw new Error(`Transaction ${hash} finalized, but successful execution could not be confirmed. Check it in GenLayer Studio before retrying.`);
   }
-  return await (client as unknown as {
-    waitForDecision: (a: { hash: string }) => Promise<unknown>;
-  }).waitForDecision({ hash });
+  return tx;
 }
 
 // ─── Types ──────────────────────────────────────────────────────────────
